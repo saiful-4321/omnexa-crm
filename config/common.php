@@ -23,8 +23,8 @@ return [
 
     // cms file
     "cms" => [
-        "title"       => "Starter Kit",
-        "short_title" => "SSK",
+        "title"       => "Omnexa CRM",
+        "short_title" => "OMNEXA",
         "website"     => "www.sylnovia.com",
         "head_office" => [
             "address"   => "Suvastu Muskan Tower, Level-9, 56 Gulshan Avenue, Road-132, Gulshan-1, Dhaka-1212",
@@ -34,13 +34,13 @@ return [
     ],
 
     "company" => [
-        "company_name"     => "Sylnovia",
-        "short_name"       => "Sylnovia",
+        "company_name"     => "Omnexa CRM",
+        "short_name"       => "Omnexa",
         "address"          => "Dhaka, Bangladesh",
-        "email"            => "info@sylnovia.com",
+        "email"            => "info@omnexa.com",
         "phone"            => "+880123456789",
-        "meta_title"       => "Sylnovia - Best Software Company",
-        "meta_desc"        => "Sylnovia is a leading software company.",
+        "meta_title"       => "Omnexa CRM - Intelligence Behind Every Interaction",
+        "meta_desc"        => "Omnexa CRM - Smarter Relationships. Faster Growth..",
         "meta_tags"        => "software, web, app",
         "logo_white"       => null,
         "logo_dark"        => null,
