@@ -48,7 +48,7 @@
                                 <th class="border-top-0">Email</th>
                                 <th class="border-top-0">Guard</th>
                                 <th class="border-top-0">IP</th>
-                                <th class="border-top-0">Agent</th>
+                                <th class="border-top-0 w-25">Agent</th>
                                 <th class="border-top-0">Logged in</th>
                                 <th class="border-top-0">Logged Out</th>
                                 <th class="border-top-0">Is Pretend</th>

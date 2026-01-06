@@ -76,20 +76,20 @@
             @if(!($isPdf ?? false))
             <td>
                 @can("user-update")
-                    <a class="mb-1 btn btn-primary" href="javascript:void(0)" route="{{ route('dashboard.user.edit', $item->id) }}" data-toggle="dynamicModal" title="Edit"><i class="fa fa-edit"></i> </a>
+                    <a class="mb-1 btn btn-primary btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.edit', $item->id) }}" data-toggle="dynamicModal" title="Edit"><i class="fa fa-edit"></i> </a>
                 @endcan
 
                 @can("user-delete") 
                     @if (!in_array($item->payment_status, [\App\Modules\Main\Enums\PaymentStatusEnum::Processing, \App\Modules\Main\Enums\PaymentStatusEnum::Paid])) 
-                        <a class="mb-1 btn btn-danger" href="javascript:void(0)" onclick="return deleteConfirm(this);" route="{{ route('dashboard.user.delete', $item->id) }}" title="Delete" ><i class="fa fa-trash"></i> </a>
+                        <a class="mb-1 btn btn-danger btn-sm" href="javascript:void(0)" onclick="return deleteConfirm(this);" route="{{ route('dashboard.user.delete', $item->id) }}" title="Delete" ><i class="fa fa-trash"></i> </a>
                     @endif
                 @endcan
                 
                 @can("user-reset-password")
-                    <a class="mb-1 btn btn-warning" href="javascript:void(0)" route="{{ route('dashboard.user.reset-password', $item->id) }}" data-toggle="dynamicModal" title="Reset Password"><i class="fa fa-key"></i> </a>
+                    <a class="mb-1 btn btn-warning btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.reset-password', $item->id) }}" data-toggle="dynamicModal" title="Reset Password"><i class="fa fa-key"></i> </a>
                 @endcan
                 @can("user-pretend-login")
-                    <a class="mb-1 btn btn-success" href="javascript:void(0)" onclick="return pretendConfirm(this);" route="{{ route('dashboard.user.pretend-login', $item->id) }}" title="Pretend Login" ><i class="fa fa-arrow-right"></i> </a>
+                    <a class="mb-1 btn btn-success btn-sm" href="javascript:void(0)" onclick="return pretendConfirm(this);" route="{{ route('dashboard.user.pretend-login', $item->id) }}" title="Pretend Login" ><i class="fa fa-arrow-right"></i> </a>
                 @endcan
             </td>
             @endif
