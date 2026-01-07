@@ -27,7 +27,7 @@
 
                     <div class="d-flex align-items-center gap-2">
                         @can('permission-create')
-                        <a href="javascript:void(0)" route="{{  route('dashboard.role.permission.create')  }}" data-toggle="dynamicModal" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
+                        <a href="javascript:void(0)" route="{{  route('dashboard.role.permission.create')  }}" data-toggle="commonOffcanvas" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
                             <i class="mdi mdi-plus me-1"></i> Add New Permission
                         </a>
                         @endcan

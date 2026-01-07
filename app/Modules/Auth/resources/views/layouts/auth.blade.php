@@ -228,7 +228,7 @@
                     <div class="auth-footer">
                         <p class="mb-0">
                             {{ date("Y") }} &copy; {{ config('common.cms.short_title') }}. 
-                            Design & Develop by <a href="https://quantfintech.ai" target="_blank">QFL</a>
+                            Design & Develop by <a href="https://sylnovia.com" target="_blank">Sylnovia</a>
                         </p>
                     </div>
                 </div>

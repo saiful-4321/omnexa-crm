@@ -12,7 +12,7 @@
             <th class="border-top-0">Created Info</th>
             <th class="border-top-0">Updated Info</th>
             @if(!($isPdf ?? false))
-            <th class="border-top-0">Action</th>
+            <th class="border-top-0 text-end">Action</th>
             @endif
         </tr>
     </thead>
@@ -74,9 +74,9 @@
             </td>
             
             @if(!($isPdf ?? false))
-            <td>
+            <td class="text-end">
                 @can("user-update")
-                    <a class="mb-1 btn btn-primary btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.edit', $item->id) }}" data-toggle="dynamicModal" title="Edit"><i class="fa fa-edit"></i> </a>
+                    <a class="mb-1 btn btn-primary btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.edit', $item->id) }}" data-toggle="commonOffcanvas" title="Edit"><i class="fa fa-edit"></i> </a>
                 @endcan
 
                 @can("user-delete") 
@@ -86,7 +86,7 @@
                 @endcan
                 
                 @can("user-reset-password")
-                    <a class="mb-1 btn btn-warning btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.reset-password', $item->id) }}" data-toggle="dynamicModal" title="Reset Password"><i class="fa fa-key"></i> </a>
+                    <a class="mb-1 btn btn-warning btn-sm" href="javascript:void(0)" route="{{ route('dashboard.user.reset-password', $item->id) }}" data-toggle="commonOffcanvas" title="Reset Password"><i class="fa fa-key"></i> </a>
                 @endcan
                 @can("user-pretend-login")
                     <a class="mb-1 btn btn-success btn-sm" href="javascript:void(0)" onclick="return pretendConfirm(this);" route="{{ route('dashboard.user.pretend-login', $item->id) }}" title="Pretend Login" ><i class="fa fa-arrow-right"></i> </a>

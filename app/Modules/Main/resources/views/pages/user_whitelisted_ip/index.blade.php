@@ -27,7 +27,7 @@
 
                     <div class="d-flex align-items-center gap-2">
                         @can('user-whitelisted-ip-create')
-                        <a href="javascript:void(0)" route="{{ route('dashboard.user-whitelisted-ip.create') }}" data-toggle="dynamicModal" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
+                        <a href="javascript:void(0)" route="{{ route('dashboard.user-whitelisted-ip.create') }}" data-toggle="commonOffcanvas" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
                             <i class="mdi mdi-plus me-1"></i> Add New IP
                         </a>
                         @endcan
@@ -88,7 +88,7 @@
                                 </td> 
                                 <td>
                                     @can("user-whitelisted-ip-update")
-                                        <a class="btn btn-primary " href="javascript:void(0)" route="{{ route('dashboard.user-whitelisted-ip.edit', $item->id) }}" data-toggle="dynamicModal"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary " href="javascript:void(0)" route="{{ route('dashboard.user-whitelisted-ip.edit', $item->id) }}" data-toggle="commonOffcanvas"><i class="fa fa-edit"></i> Edit</a>
                                     @endcan
                                 </td>
                             </tr>

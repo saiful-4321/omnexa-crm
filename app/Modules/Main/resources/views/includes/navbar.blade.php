@@ -180,7 +180,7 @@
                     <a class="dropdown-item" href="{{ route('dashboard.user.profile') }}"><i class="mdi mdi-account font-size-16 align-middle me-1"></i> Profile</a>
                     
                     @can("user-change-password")                   
-                    <a class="dropdown-item" href="javascript:void(0)" route="{{ route('dashboard.user.profile.change-password') }}" data-toggle="dynamicModal">
+                    <a class="dropdown-item" href="javascript:void(0)" route="{{ route('dashboard.user.profile.change-password') }}" data-toggle="commonOffcanvas">
                         <i class="mdi mdi-lock font-size-16 align-middle me-1"></i>
                         Change Password
                     </a>

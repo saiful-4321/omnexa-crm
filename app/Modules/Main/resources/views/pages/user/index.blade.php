@@ -27,7 +27,7 @@
                     
                     <div class="d-flex align-items-center gap-2">
                         @can('user-create')
-                        <a href="javascript:void(0)" route="{{ route('dashboard.user.create') }}" data-toggle="dynamicModal" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
+                        <a href="javascript:void(0)" route="{{ route('dashboard.user.create') }}" data-toggle="commonOffcanvas" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
                             <i class="mdi mdi-plus me-1"></i> Add New User
                         </a>
                         @endcan

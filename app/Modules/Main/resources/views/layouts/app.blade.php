@@ -190,6 +190,19 @@
                 </div>
             </div>
         </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="commonOffcanvas" aria-labelledby="commonOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 id="commonOffcanvasLabel"></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="commonOffcanvasBody">
+            <!-- Dynamic Content -->
+        </div>
+        <div class="offcanvas-footer p-3 border-top" id="commonOffcanvasFooter" style="display: none;">
+            <!-- Dynamic Footer Actions -->
+        </div>
+    </div>
+
     </div>
 
         @include("Main::includes.scripts")

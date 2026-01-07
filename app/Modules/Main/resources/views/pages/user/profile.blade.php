@@ -64,7 +64,7 @@
                     <h6 class="font-weight-medium mb-0">Profile Information</h6>
 
                     @can("user-profile-edit")
-                    <a href="javascript:void(0)" route="{{ route('dashboard.user.profile.edit') }}" data-toggle="dynamicModal" class="btn btn-info d-flex align-items-center font-weight-medium">
+                    <a href="javascript:void(0)" route="{{ route('dashboard.user.profile.edit') }}" data-toggle="commonOffcanvas" class="btn btn-info d-flex align-items-center font-weight-medium">
                         <i class="icon-plus pr-2"></i>
                         Edit Profile
                     </a> 

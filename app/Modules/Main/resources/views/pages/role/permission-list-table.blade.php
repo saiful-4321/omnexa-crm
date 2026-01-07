@@ -42,7 +42,7 @@
             @if(!($isPdf ?? false))
             <td>
                 @can("permission-update")
-                <a href="javascript:void(0)" route="{{ route('dashboard.role.permission.edit', $item->id)  }}" data-toggle="dynamicModal" class="btn btn-primary " title="Edit"><i class="fa fa-edit"></i> Edit</a>
+                <a href="javascript:void(0)" route="{{ route('dashboard.role.permission.edit', $item->id)  }}" data-toggle="commonOffcanvas" class="btn btn-primary " title="Edit"><i class="fa fa-edit"></i> Edit</a>
                 @endcan
             </td>
             @endif

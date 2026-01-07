@@ -12,7 +12,7 @@
                 {{ date("Y") }}&copy;{{ config('common.cms.short_title') }}
               </div>
               <div class="text-sm-end text-success">
-                  Design & Develop by <a href="https://quantfintech.ai" class="text-decoration-underline">QFL</a>
+                  Design & Develop by <a href="https://sylnovia.com" class="text-decoration-underline">Sylnovia</a>
               </div>
           </div>
       </div>

@@ -1,17 +1,74 @@
-$(document).ready(function() {  
+$(document).ready(function () {
 
     // common modal
-    $('body').on("click", '[data-toggle="dynamicModal"]', function(e) {
+    $('body').on("click", '[data-toggle="dynamicModal"]', function (e) {
         e.preventDefault();
         $("#dynamicModal").remove();
         var modal = $(this);
-        var url   = modal.data("remote") || modal.attr("route") || modal.attr("href");
-        var html = $('<div class="modal fade show" id="dynamicModal" tabindex="-1" aria-modal="true"  role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="dynamicModalLabel" aria-hidden="true" style="display: block"></div>'); 
+        var url = modal.data("remote") || modal.attr("route") || modal.attr("href");
+        var html = $('<div class="modal fade show" id="dynamicModal" tabindex="-1" aria-modal="true"  role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="dynamicModalLabel" aria-hidden="true" style="display: block"></div>');
         $("body").append(html);
         html.modal({
             easein: "flipInX"
         });
-        html.load(url); 
+        html.load(url);
+    });
+
+    // Common Offcanvas Logic
+    $('body').on("click", '[data-toggle="commonOffcanvas"]', function (e) {
+        e.preventDefault();
+        var trigger = $(this);
+        var url = trigger.data("remote") || trigger.attr("route") || trigger.attr("href");
+        var title = trigger.data("title") || trigger.attr("title") || "Details";
+
+        // Reset and Prep Offcanvas
+        $('#commonOffcanvasLabel').text(title);
+        $('#commonOffcanvasBody').html('<div class="d-flex justify-content-center align-items-center h-100"><div class="spinner-border text-primary" role="status"></div></div>');
+        $('#commonOffcanvasFooter').empty().hide();
+
+        var bsOffcanvas = new bootstrap.Offcanvas(document.getElementById('commonOffcanvas'));
+        bsOffcanvas.show();
+
+        // Load Content
+        $.ajax({
+            url: url,
+            success: function (response) {
+                var $content = $('<div>').html(response);
+
+                // Smart Parsing for Modal-compatible views
+                var $modalHeader = $content.find('.modal-header');
+                var $modalBody = $content.find('.modal-body');
+                var $modalFooter = $content.find('.modal-footer');
+
+                if ($modalBody.length > 0) {
+                    // It's a modal structure
+                    if ($modalHeader.find('.modal-title').length > 0 && !trigger.data("title")) {
+                        $('#commonOffcanvasLabel').text($modalHeader.find('.modal-title').text());
+                    }
+                    $('#commonOffcanvasBody').html($modalBody.html());
+
+                    if ($modalFooter.length > 0) {
+                        $('#commonOffcanvasFooter').html($modalFooter.html()).show();
+                    }
+                } else {
+                    // It's just flat content
+                    $('#commonOffcanvasBody').html(response);
+                }
+
+                // Re-init plugins if needed (like select2, datepicker) inside offcanvas
+                // This might need moving specific init codes to a shared function
+                $('#commonOffcanvasBody .select2').select2({
+                    placeholder: 'Select an option',
+                    allowClear: true,
+                    width: '100%',
+                    dropdownParent: $('#commonOffcanvas')
+                });
+                feather.replace();
+            },
+            error: function () {
+                $('#commonOffcanvasBody').html('<div class="text-danger p-3">Failed to load content.</div>');
+            }
+        });
     });
 
     // close modal
@@ -21,7 +78,7 @@ $(document).ready(function() {
 
     // feather icons
     feather.replace();
-  
+
     // select2
     $(".select2").select2({
         placeholder: 'Select an option',
@@ -40,7 +97,7 @@ $(document).ready(function() {
     });
 
     // carousel
-    $('.carousel').carousel();  
+    $('.carousel').carousel();
 
     // tooltip
     $('[data-toggle="tooltip"]').tooltip();
@@ -63,7 +120,7 @@ $(document).ready(function() {
     $('.datetimepicker').flatpickr({
         enableTime: true,
         dateFormat: "YYYY-MM-DD HH:mm:ss",
-        altFormat:  "YYYY-MM-DD HH:mm:ss",
+        altFormat: "YYYY-MM-DD HH:mm:ss",
         allowInput: true,
         parseDate: (datestr, format) => {
             return moment(datestr, format, true).toDate();
@@ -79,7 +136,7 @@ $(document).ready(function() {
         dateFormat: "YYYY-MM-DD",
         altFormat: "YYYY-MM-DD",
         allowInput: true,
-        maxDate: "today", 
+        maxDate: "today",
         parseDate: (datestr, format) => {
             return moment(datestr, format, true).toDate();
         },
@@ -93,16 +150,16 @@ $(document).ready(function() {
     $('.datetimepicker-date').daterangepicker({
         autoUpdateInput: false,
         singleDatePicker: true,
-        showDropdowns: true,  
+        showDropdowns: true,
         locale: {
             format: 'YYYY-MM-DD',
             cancelLabel: 'Clear'
         }
     });
-    $('.datetimepicker-date').on('apply.daterangepicker', function(ev, picker) {
+    $('.datetimepicker-date').on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('YYYY-MM-DD'));
     });
-    $('.datetimepicker-date').on('cancel.daterangepicker', function(ev, picker) {
+    $('.datetimepicker-date').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
     });
 
@@ -110,27 +167,27 @@ $(document).ready(function() {
     $('.datetimepicker-time').daterangepicker({
         autoUpdateInput: false,
         singleDatePicker: true,
-        showDropdowns: true,  
+        showDropdowns: true,
         locale: {
             format: 'YYYY-MM-DD',
             cancelLabel: 'Clear'
         }
     });
-    $('.datetimepicker-time').on('apply.daterangepicker', function(ev, picker) {
+    $('.datetimepicker-time').on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('YYYY-MM-DD'));
     });
-    $('.datetimepicker-time').on('cancel.daterangepicker', function(ev, picker) {
+    $('.datetimepicker-time').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
     });
 
     // form common fix - change validation error on change
-    $("body").on("keyup change", "input,select", function() {
+    $("body").on("keyup change", "input,select", function () {
         $(this).removeClass("is-invalid");
     });
 });
 
 // dark & light mode
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const currentMode = localStorage.getItem('mode');
 
     if (currentMode) {
@@ -141,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    document.getElementById('mode-setting-btn').addEventListener('click', function() {
+    document.getElementById('mode-setting-btn').addEventListener('click', function () {
         const mode = localStorage.getItem('mode') === "dark" ? 'light' : 'dark';
         document.body.setAttribute('data-layout-mode', mode);
         localStorage.setItem('mode', mode);
@@ -156,17 +213,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 var copyElements = document.querySelectorAll(".copy");
-copyElements.forEach(function(copyElement) {
+copyElements.forEach(function (copyElement) {
     copyElement.style.cursor = 'copy';
     copyElement.setAttribute("title", "Copy");
 
-    copyElement.addEventListener("click", function() {
-        
+    copyElement.addEventListener("click", function () {
+
         var textToCopy = "";
         if ((/^(input|textarea)$/i).test(this.tagName.toLowerCase())) {
-            textToCopy = this.value; 
+            textToCopy = this.value;
         } else {
-            textToCopy = this.innerText; 
+            textToCopy = this.innerText;
         }
 
         var textarea = document.createElement("textarea");
@@ -179,11 +236,11 @@ copyElements.forEach(function(copyElement) {
         // Apply copied animation styles
         this.style.background = 'linear-gradient(45deg, #76787e, #082fef)';
 
-        setTimeout(function() {
+        setTimeout(function () {
             copyElement.style.transition = 'transform 0.3s';
             copyElement.style.background = '';
-        }, 600); 
-        
+        }, 600);
+
         copyElement.setAttribute("title", "Copied");
     });
 });
@@ -198,7 +255,7 @@ function lessSms(e) {
     $(e).parent().find('.show-more').show();
     $(e).hide();
 }
-  
+
 
 // alert
 function swalAlert(type = "success", message = "") {
@@ -228,7 +285,7 @@ function swalConfirmAlert(form) {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!',
-        reverseButtons:true
+        reverseButtons: true
     }).then((result) => {
         if (result.value) {
             form.submit();
@@ -248,7 +305,7 @@ function deleteConfirm(input) {
         showCancelButton: true,
         confirmButtonColor: '#d33',
         confirmButtonText: 'Delete',
-        reverseButtons:true
+        reverseButtons: true
     }).then((result) => {
         if (result.value) {
             window.location.href = input.getAttribute("route");

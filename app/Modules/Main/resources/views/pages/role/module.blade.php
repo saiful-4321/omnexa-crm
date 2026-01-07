@@ -5,7 +5,7 @@
 <div class="block-header">
     <div class="row">
         <div class="col-lg-5 col-md-8 col-sm-12">                        
-            <h2>{{ __('Modules') }}</h2>
+            <button class='btn btn-outline-dark'><h5 class="m-0">{{ __('Modules') }}</h4></button>
         </div>            
         <div class="col-lg-7 col-md-4 col-sm-12 text-right">
             <ul class="breadcrumb justify-content-end">
@@ -26,7 +26,7 @@
 
                     <div class="d-flex align-items-center gap-2">
                         @can('module-create')
-                        <a href="javascript:void(0)" route="{{  route('dashboard.role.module.create')  }}" data-toggle="dynamicModal" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
+                        <a href="javascript:void(0)" route="{{  route('dashboard.role.module.create')  }}" data-toggle="commonOffcanvas" class="btn btn-info btn-sm d-flex align-items-center font-weight-medium">
                             <i class="mdi mdi-plus me-1"></i> Add New Module
                         </a>
                         @endcan 
@@ -47,7 +47,7 @@
             @endif
 
             <div class="card-body p-0"> 
-                <div class="table-responsive rounded-10 border">
+                <div class="table-responsive table-sm rounded-10 border">
                     <table class="table table-hover mb-0">
                         <thead class="bg-light">
                             <tr>
@@ -55,7 +55,7 @@
                                 <th class="border-top-0">Name</th>
                                 <th class="border-top-0">Status</th>
                                 <th class="border-top-0">Created Date</th>
-                                <th class="border-top-0">#</th>
+                                <th class="border-top-0 text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,9 +66,9 @@
                                 <td><span>{{ $item->name }}</span></td>
                                 <td>{!! $item->status==1?'<span class="text-success">Active</span>':'<span class="text-danger">Inactive</span>' !!}</td>
                                 <td>{{ dbToDateTime($item->created_at) }}</td>
-                                <td>
+                                <td class="text-end">
                                     @can("module-update")
-                                    <a href="javascript:void(0)" route="{{  route('dashboard.role.module.edit', $item->id)  }}" data-toggle="dynamicModal" class="btn btn-primary " title="Edit"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="javascript:void(0)" route="{{  route('dashboard.role.module.edit', $item->id)  }}" data-toggle="commonOffcanvas" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i> Edit</a>
                                     @endcan
                                 </td>
                             </tr>
