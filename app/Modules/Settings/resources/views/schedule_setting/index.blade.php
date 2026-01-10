@@ -3,10 +3,10 @@
 @section('content')
 <div class="row">
     <div class="col-lg-5 col-md-8 col-sm-12">                        
-        <h2>{{ __('Schedule Settings') }}</h2>
+        <h4>{{ __('Schedule Settings') }}</h2>
     </div>            
     <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-        <ul class="breadcrumb justify-content-end">
+        <ul class="breadcrumb justify-content-end m-0">
             <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i></a></li>                            
             <li class="breadcrumb-item">Settings</li>
             <li class="breadcrumb-item active">Schedule Settings</li>
