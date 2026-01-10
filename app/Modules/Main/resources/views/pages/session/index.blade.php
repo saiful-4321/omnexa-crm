@@ -4,10 +4,11 @@
 <div class="block-header">
     <div class="row">
         <div class="col-lg-5 col-md-8 col-sm-12">
-            <h2>User Session </h2>
+            <h4>User Session </h2>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-            <ul class="breadcrumb justify-content-end">
+            <ul class="breadcrumb justify-content-end m-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.user') }}">User Management</a></li>
                 <li class="breadcrumb-item active">User Session</li>
             </ul>
@@ -81,7 +82,7 @@
                 </div>
             </div>
 
-            @if (!empty($result->count()))
+            @if (!empty($result->count()) && $result->hasMorePages())
                 <div class="d-flex justify-content-end mt-3 mb-0 px-3">
                     {!! $result->appends(request()->all())->links() !!}
                 </div>

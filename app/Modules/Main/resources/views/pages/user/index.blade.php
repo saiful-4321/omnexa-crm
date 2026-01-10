@@ -4,10 +4,11 @@
 <div class="block-header">
     <div class="row">
         <div class="col-lg-5 col-md-8 col-sm-12">
-            <h2>Users - <small>({{ request()->get("status") ? request()->get("status") : "All"  }})</small> </h2>
+            <h4 class="m-0">Users - <small>({{ request()->get("status") ? request()->get("status") : "All"  }})</small> </h2>
         </div>
         <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-            <ul class="breadcrumb justify-content-end">
+            <ul class="breadcrumb justify-content-end m-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.user') }}">User Management</a></li>
                 <li class="breadcrumb-item active">Users</li>
             </ul>
@@ -72,7 +73,7 @@
                 </div>
             </div>
 
-            @if (!empty($result->count()))
+            @if (!empty($result->count()) && $result->hasMorePages())
                 <div class="d-flex justify-content-end mt-3 mb-0">
                     {!! $result->appends(request()->all())->links() !!}
                 </div>
