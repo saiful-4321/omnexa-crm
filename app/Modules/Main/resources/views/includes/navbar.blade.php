@@ -6,20 +6,20 @@
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO --> 
-            <div class="navbar-brand-box">
+    <div class="navbar-brand-box">
                 <a href="{{ route("dashboard.home") }}" class="logo logo-dark">
                     <span class="logo-sm">
                         @if(!empty($company['logo_dark_small']))
-                            <img src="{{ asset($company['logo_dark_small']) }}" alt="" height="24">
+                            <img src="{{ asset($company['logo_dark_small']) }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @else
-                            <img src="{{ asset('assets/images/favicon.png') }}" alt="" height="24">
+                            <img src="{{ asset('assets/images/favicon.png') }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @endif
                     </span>
                     <span class="logo-lg">
                         @if(!empty($company['logo_dark']))
-                            <img src="{{ asset($company['logo_dark']) }}" alt="" height="24">
+                            <img src="{{ asset($company['logo_dark']) }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="" height="20"> <span class="logo-txt"></span>
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="" style="height: {{ $company['logo_height'] ?? '20px' }}; width: {{ $company['logo_width'] ?? 'auto' }};"> <span class="logo-txt"></span>
                         @endif
                     </span>
                 </a>
@@ -27,16 +27,16 @@
                 <a href="{{ route("dashboard.home") }}" class="logo logo-light">
                     <span class="logo-sm">
                         @if(!empty($company['logo_white_small']))
-                            <img src="{{ asset($company['logo_white_small']) }}" alt="" height="24">
+                            <img src="{{ asset($company['logo_white_small']) }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @else
-                            <img src="{{ asset('assets/images/favicon.png') }}" alt="" height="24">
+                            <img src="{{ asset('assets/images/favicon.png') }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @endif
                     </span>
                     <span class="logo-lg">
                         @if(!empty($company['logo_white']))
-                            <img src="{{ asset($company['logo_white']) }}" alt="" height="24">
+                            <img src="{{ asset($company['logo_white']) }}" alt="" style="height: {{ $company['logo_height'] ?? '24px' }}; width: {{ $company['logo_width'] ?? 'auto' }};">
                         @else
-                            <img src="{{ asset('assets/images/logo-white.png') }}" alt="" height="20" > <span class="logo-txt"></span>
+                            <img src="{{ asset('assets/images/logo-white.png') }}" alt="" style="height: {{ $company['logo_height'] ?? '20px' }}; width: {{ $company['logo_width'] ?? 'auto' }};"> <span class="logo-txt"></span>
                         @endif
                     </span>
                 </a>

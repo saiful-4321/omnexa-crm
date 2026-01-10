@@ -4,10 +4,10 @@
 @section('content')
 <div class="row">
     <div class="col-lg-5 col-md-8 col-sm-12">                        
-        <h2>{{ __('Roles') }}</h2>
+        <h4>{{ __('Roles') }}</h2>
     </div>            
     <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-        <ul class="breadcrumb justify-content-end">
+        <ul class="breadcrumb justify-content-end m-0">
             <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i></a></li>                            
             <li class="breadcrumb-item">Role & Permission</li>
             <li class="breadcrumb-item active">Roles</li>
@@ -52,7 +52,7 @@
                                 <th class="border-top-0">Total Permission</th>
                                 <th class="border-top-0">Created Date</th>
                                 <th class="border-top-0">Updated Date</th>
-                                <th class="border-top-0">#</th>
+                                <th class="border-top-0 text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,12 +64,12 @@
                                 <td>{{ $item->permissions->count()??'0' }}</td>
                                 <td>{{ dbToDateTime($item->created_at) }}</td>
                                 <td>{{ dbToDateTime($item->updated_at) }}</td>
-                                <td>
+                                <td class="text-end">
                                     @can("role-update")
                                     <a href="javascript:void(0)" 
                                        data-role-id="{{ $item->id }}" 
                                        data-role-name="{{ $item->name }}"
-                                       class="btn btn-primary role-edit-btn" 
+                                       class="btn btn-primary role-edit-btn btn-sm" 
                                        title="Edit">
                                         <i class="fa fa-edit"></i> Edit
                                     </a>
@@ -80,12 +80,11 @@
                             @endif
                         </tbody>
                     </table>
-
-                    <div class="d-flex justify-content-end mt-3 mb-0 px-3">  
-                        @if (!empty($result) && $result->count() > 0)
-                            {{ $result->appends($_REQUEST)->render() }}
-                        @endif
-                    </div>
+                    @if(!empty($result->count()) && $result->hasMorePages())
+                        <div class="d-flex justify-content-end mt-3 mb-0 px-3">  
+                                {{ $result->appends($_REQUEST)->render() }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

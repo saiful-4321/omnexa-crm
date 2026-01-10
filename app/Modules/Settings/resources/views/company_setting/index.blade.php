@@ -143,6 +143,17 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="logo_height" class="form-label">Logo Height (e.g. 50px)</label>
+                                <input type="text" class="form-control" id="logo_height" name="logo_height" value="{{ old('logo_height', $setting->logo_height ?? null) }}" placeholder="50px">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="logo_width" class="form-label">Logo Width (e.g. auto)</label>
+                                <input type="text" class="form-control" id="logo_width" name="logo_width" value="{{ old('logo_width', $setting->logo_width ?? null) }}" placeholder="auto">
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="favicon" class="form-label">Favicon</label>
                             <input type="file" class="form-control" id="favicon" name="favicon">

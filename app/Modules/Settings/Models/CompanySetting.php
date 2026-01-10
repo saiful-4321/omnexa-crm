@@ -28,5 +28,7 @@ class CompanySetting extends Model
         'favicon',
         'registration_active',
         'password_reset_active',
+        'logo_height',
+        'logo_width',
     ];
 }

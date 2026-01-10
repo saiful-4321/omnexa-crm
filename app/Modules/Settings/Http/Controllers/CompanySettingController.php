@@ -47,6 +47,8 @@ class CompanySettingController extends Controller
             'favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico|max:2048',
             'registration_active' => 'nullable',
             'password_reset_active' => 'nullable',
+            'logo_height' => 'nullable|string|max:20',
+            'logo_width' => 'nullable|string|max:20',
         ]);
 
         $setting = CompanySetting::first();
