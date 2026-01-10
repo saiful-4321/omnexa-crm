@@ -5,10 +5,10 @@
 <div class="block-header">
     <div class="row">
         <div class="col-lg-5 col-md-8 col-sm-12">                        
-            <h2>{{ __('Permissions') }}</h2>
+            <h4>{{ __('Permissions') }}</h2>
         </div>            
         <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-            <ul class="breadcrumb justify-content-end">
+            <ul class="breadcrumb justify-content-end m-0">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i></a></li>                            
                 <li class="breadcrumb-item">Role & Permission</li>
                 <li class="breadcrumb-item active">Permissions</li>
@@ -68,7 +68,7 @@
                     @include('Main::pages.role.permission-list-table')
 
                     <div class="d-flex justify-content-end mt-3 mb-0 px-3"> 
-                        @if (!empty($result) && $result->count() > 0)
+                        @if(!empty($result->count()) && $result->hasMorePages())
                             {{ $result->appends($_REQUEST)->render() }}
                         @endif
                     </div>

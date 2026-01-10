@@ -76,12 +76,11 @@
                             @endif
                         </tbody>
                     </table>
-
-                    <div class="d-flex justify-content-end mt-3 mb-0 px-3"> 
-                        @if (!empty($result) && $result->count() > 0)
+                    @if(!empty($result->count()) && $result->hasMorePages())
+                        <div class="d-flex justify-content-end mt-3 mb-0 px-3"> 
                             {{ $result->appends($_REQUEST)->render() }}
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

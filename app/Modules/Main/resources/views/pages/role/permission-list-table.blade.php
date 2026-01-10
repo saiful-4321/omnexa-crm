@@ -7,7 +7,7 @@
             <th class="border-top-0">Created Date</th>
             <th class="border-top-0">Updated Date</th>
             @if(!($isPdf ?? false))
-            <th class="border-top-0">#</th>
+            <th class="border-top-0 text-end">Action</th>
             @endif
         </tr>
     </thead>
@@ -40,9 +40,9 @@
             <td>{{ dbToDateTime($item->updated_at) }}</td>
             
             @if(!($isPdf ?? false))
-            <td>
+            <td class="text-end">
                 @can("permission-update")
-                <a href="javascript:void(0)" route="{{ route('dashboard.role.permission.edit', $item->id)  }}" data-toggle="commonOffcanvas" class="btn btn-primary " title="Edit"><i class="fa fa-edit"></i> Edit</a>
+                <a href="javascript:void(0)" route="{{ route('dashboard.role.permission.edit', $item->id)  }}" data-toggle="commonOffcanvas" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i> Edit</a>
                 @endcan
             </td>
             @endif
