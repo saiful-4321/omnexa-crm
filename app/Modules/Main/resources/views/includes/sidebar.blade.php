@@ -130,6 +130,16 @@
                 </li>
                 @endcanany
 
+                {{-- Tenant Management --}}
+                @canany(['tenant-list', 'tenant-create', 'tenant-update', 'tenant-delete'])
+                <li>
+                    <a href="{{ route('dashboard.tenants.index') }}">
+                        <i data-feather="monitor"></i>
+                        <span data-key="t-tenants">Tenants</span>
+                    </a>
+                </li>
+                @endcanany
+
 
 
                 {{-- Logout --}}

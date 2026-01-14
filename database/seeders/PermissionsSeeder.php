@@ -40,6 +40,7 @@ class PermissionsSeeder extends Seeder
                 ['id' => 4, 'name' => 'System', 'status' => 1, 'created_at' => now()],
                 ['id' => 5, 'name' => 'Settings', 'status' => 1, 'created_at' => now()],
                 ['id' => 6, 'name' => 'Documentation', 'status' => 1, 'created_at' => now()],
+                ['id' => 7, 'name' => 'Tenant Management', 'status' => 1, 'created_at' => now()],
             ]);
 
             // Define permissions for different modules
@@ -83,6 +84,17 @@ class PermissionsSeeder extends Seeder
                 [
                     'module_id' => 6,
                     'permissions' => ['api-documentation']
+                ],
+                // Permissions for module_id 7
+                [
+                    'module_id' => 7,
+                    'permissions' => [
+                        'tenant-list', 
+                        'tenant-create', 
+                        'tenant-update', 
+                        'tenant-delete',
+                        'tenant-branding-update'
+                    ]
                 ],
             ];
 

@@ -41,6 +41,8 @@
 <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 <!-- custom css-->
 <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
+<!-- modern offcanvas -->
+<link href="{{ asset('assets/css/modern_offcanvas.css') }}" rel="stylesheet" type="text/css" />
 
 @stack("styles")
 

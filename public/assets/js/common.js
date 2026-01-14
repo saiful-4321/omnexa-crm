@@ -26,7 +26,13 @@ $(document).ready(function () {
         $('#commonOffcanvasBody').html('<div class="d-flex justify-content-center align-items-center h-100"><div class="spinner-border text-primary" role="status"></div></div>');
         $('#commonOffcanvasFooter').empty().hide();
 
-        var bsOffcanvas = new bootstrap.Offcanvas(document.getElementById('commonOffcanvas'));
+        var offcanvasEl = document.getElementById('commonOffcanvas');
+        var bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+
+        if (!bsOffcanvas) {
+            bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
+        }
+
         bsOffcanvas.show();
 
         // Load Content
@@ -35,25 +41,21 @@ $(document).ready(function () {
             success: function (response) {
                 var $content = $('<div>').html(response);
 
-                // Smart Parsing for Modal-compatible views
-                var $modalHeader = $content.find('.modal-header');
-                var $modalBody = $content.find('.modal-body');
-                var $modalFooter = $content.find('.modal-footer');
+                // DIRECT INJECTION: Preserve the Form structure!
+                // We dump the entire response (including the <form> tag) into the body.
+                // We hide the native footer because the form brings its own footer.
+                $('#commonOffcanvasBody').html(response);
+                $('#commonOffcanvasFooter').hide();
 
-                if ($modalBody.length > 0) {
-                    // It's a modal structure
-                    if ($modalHeader.find('.modal-title').length > 0 && !trigger.data("title")) {
-                        $('#commonOffcanvasLabel').text($modalHeader.find('.modal-title').text());
-                    }
-                    $('#commonOffcanvasBody').html($modalBody.html());
-
-                    if ($modalFooter.length > 0) {
-                        $('#commonOffcanvasFooter').html($modalFooter.html()).show();
-                    }
-                } else {
-                    // It's just flat content
-                    $('#commonOffcanvasBody').html(response);
+                // Optional: Update title if found in the response
+                var $temp = $('<div>').html(response);
+                var $modalHeader = $temp.find('.modal-header');
+                if ($modalHeader.find('.modal-title').length > 0 && !trigger.data("title")) {
+                    $('#commonOffcanvasLabel').text($modalHeader.find('.modal-title').text());
                 }
+                // Hide header inside body to avoid double headers if desired, 
+                // but usually fine to have it or we can hide the outer one.
+                // For now, let's trust the design.
 
                 // Re-init plugins if needed (like select2, datepicker) inside offcanvas
                 // This might need moving specific init codes to a shared function
@@ -183,6 +185,109 @@ $(document).ready(function () {
     // form common fix - change validation error on change
     $("body").on("keyup change", "input,select", function () {
         $(this).removeClass("is-invalid");
+    });
+
+    // Use Event Delegation to handle dynamic content (Offcanvas/Modal)
+    // using .off() first to prevent duplicate bindings if common.js is re-executed
+    $(document).off('submit', '.dynamicModal').on('submit', '.dynamicModal', function (e) {
+        e.preventDefault();
+
+        var form = this; // jQuery 'this' refers to the element
+        var formData = new FormData(form);
+
+        // Remove existing error elements
+        $(form).find('.invalid-feedback').remove();
+        $(form).find('.is-invalid').removeClass('is-invalid');
+
+        // Determine Method (PUT/POST/etc)
+        // CRITICAL FIX: Do NOT use the hidden _method field for the Axios/Network call.
+        // We must send as POST (form.method) so PHP can parse multipart/form-data.
+        // The _method field inside formData will tell Laravel to treat it as PUT/DELETE.
+        var method = form.getAttribute('method') || 'POST';
+
+        axios({
+            method: method,
+            url: form.action,
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Accept': 'application/json'
+            },
+            onUploadProgress: function (progressEvent) {
+                // var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            }
+        })
+            .then(function (response) {
+                $(form).find('.invalid-feedback').remove();
+                $(form).find('.is-invalid').removeClass('is-invalid');
+
+                var responseData = response.data;
+
+                if (responseData.status) {
+                    swalWithHtmlAlert('success', responseData.message);
+                    setTimeout(function () {
+                        // Close Offcanvas
+                        var offcanvasEl = document.getElementById('commonOffcanvas');
+                        var bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                        if (bsOffcanvas) bsOffcanvas.hide();
+
+                        if (responseData.redirect) {
+                            window.location.href = responseData.redirect;
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 1000);
+                } else {
+                    swalWithHtmlAlert('error', responseData.message);
+                    $(form).find('button[type="submit"]').html('<i class="fa fa-refresh"></i> Try again');
+                }
+            })
+            .catch(function (xhr) {
+                var res = xhr.response;
+                if (res && res.status == 422) {
+                    var errors = res.data.errors;
+                    for (var name in errors) {
+                        if (errors.hasOwnProperty(name)) {
+                            var message = errors[name][0]; // Laravel returns array of messages
+
+                            // Handle array field names like generic[0] -> generic[0] or generic.0
+                            var dbFieldName = name;
+
+                            // Try to find exact match first
+                            var fieldElement = $(form).find('[name="' + dbFieldName + '"]');
+
+                            // If not found, try replacing dot notation with array notation
+                            if (fieldElement.length === 0 && name.includes('.')) {
+                                // e.g. "permissions.0" -> "permissions[0]"
+                                var arrayName = name.replace(/\.(\d+)/g, '[$1]'); // simplistic replacement
+                                fieldElement = $(form).find('[name="' + arrayName + '"]');
+                            }
+
+                            if (fieldElement.length > 0) {
+                                var errorElement = $('<div class="invalid-feedback">' + message + '</div>');
+                                fieldElement.parent().append(errorElement);
+                                fieldElement.addClass('is-invalid');
+                            } else {
+                                swalWithHtmlAlert('warning', message);
+                            }
+                        }
+                    }
+                } else {
+                    var msg = res ? res.statusText : 'Unknown Error';
+                    swalWithHtmlAlert('error', msg);
+                }
+
+                $(form).find('button[type="submit"]').html('<i class="fa fa-refresh"></i> Try again');
+            });
+    });
+
+    // Explicitly handle cancel/close for Offcanvas
+    $(document).on('click', '[data-bs-dismiss="offcanvas"]', function () {
+        var offcanvasEl = document.getElementById('commonOffcanvas');
+        var bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+        if (bsOffcanvas) {
+            bsOffcanvas.hide();
+        }
     });
 });
 

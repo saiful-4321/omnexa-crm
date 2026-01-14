@@ -1,0 +1,158 @@
+/* 
+   ----------------------------------------
+   MODERN OFFCANVAS & BACKDROP STYLES 
+   ----------------------------------------
+*/
+
+/* Glassmorphism Backdrop */
+.offcanvas-backdrop.show {
+    opacity: 1 !important;
+    /* Force opacity to handle our custom rgba */
+    background-color: rgba(15, 23, 42, 0.2) !important;
+    /* Slight dark tint */
+    backdrop-filter: blur(8px) !important;
+    /* The modern blur effect */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Modern Panel Styling */
+#commonOffcanvas {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: -15px 0 50px rgba(0, 0, 0, 0.1) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.6);
+    /* Subtle highlight */
+    overflow: hidden;
+    /* For radius clipping */
+}
+
+/* Ensure injected form fills height and manages scrolling */
+/* Ensure injected form fills height and manages scrolling */
+#commonOffcanvas .offcanvas-body {
+    padding: 0;
+    /* Remove default padding so form controls it */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Reset Modal Dialog styles inside Offcanvas */
+#commonOffcanvas .offcanvas-body .modal-dialog {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#commonOffcanvas .offcanvas-body .modal-content {
+    border: none;
+    box-shadow: none;
+    height: 100%;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    /* Let native offcanvas bg show */
+}
+
+#commonOffcanvas .offcanvas-body form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#commonOffcanvas .offcanvas-body .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+#commonOffcanvas .offcanvas-body .modal-header {
+    display: none;
+    /* Hide internal modal header if we use offcanvas header, or style it */
+}
+
+#commonOffcanvas .offcanvas-body .modal-footer {
+    /* Style the footer to look like native offcanvas footer */
+    padding: 1.25rem 1.75rem !important;
+    background-color: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+}
+
+[data-layout-mode="dark"] #commonOffcanvas .offcanvas-body .modal-footer {
+    background-color: #0f172a;
+    /* Slate 900 */
+    border-top: 1px solid #334155;
+}
+
+/* Header Styling */
+#commonOffcanvas .offcanvas-header {
+    padding: 1.5rem 1.75rem;
+    background: #ffffff;
+    /* Clean white */
+    border-bottom: 1px solid #f1f5f9;
+}
+
+#commonOffcanvasLabel {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+}
+
+/* Close Button Styling */
+#commonOffcanvas .btn-close {
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    padding: 0.8rem;
+    background-size: 0.8rem;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+#commonOffcanvas .btn-close:hover {
+    background-color: #e2e8f0;
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Footer Styling */
+#commonOffcanvas .offcanvas-footer {
+    padding: 1.25rem 1.75rem !important;
+    background-color: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* DARK MODE SUPPORT */
+[data-layout-mode="dark"] #commonOffcanvas {
+    background-color: #1e293b !important;
+    /* Slate 800 */
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-layout-mode="dark"] #commonOffcanvas .offcanvas-header {
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+[data-layout-mode="dark"] #commonOffcanvasLabel {
+    color: #f8fafc;
+}
+
+[data-layout-mode="dark"] #commonOffcanvas .offcanvas-footer {
+    background-color: #0f172a;
+    /* Slate 900 */
+    border-top: 1px solid #334155;
+}
+
+[data-layout-mode="dark"] #commonOffcanvas .btn-close {
+    background-color: #334155;
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-layout-mode="dark"] #commonOffcanvas .btn-close:hover {
+    background-color: #475569;
+}
